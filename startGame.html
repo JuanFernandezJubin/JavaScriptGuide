@@ -94,6 +94,7 @@
     <div id="verde" class="color verde right" data-color="verde"></div>
     <button id="btnEmpezar" class="btn-start" onclick="empezarJuego()">Empezar a jugar!</button>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
   <script>
     const celeste = document.getElementById('celeste')
     const violeta = document.getElementById('violeta')
@@ -110,6 +111,7 @@
       }
 
       inicializar() {
+        this.toggleBtnEmpezar()
         btnEmpezar.classList.add('hide')
         this.nivel = 1
         this.colores = {
@@ -120,6 +122,15 @@
         }
 
       }
+
+      toggleBtnEmpezar(){
+        if (btnEmpezar.classList.contains("hide")) {
+          btnEmpezar.classList.remove("hide")
+        } else {
+          btnEmpezar.classList.add("hide")
+        }
+      }
+
       generarSecuencia() {
         //floor->round hacia abajo.fill -> llenna los campos
         this.secuencia = new Array(ULTIMO_NIVEL).fill(0).map(n => Math.floor(Math.random() * 4))
@@ -196,14 +207,26 @@
             this.nivel ++
             this.eliminarEventosClick()
             if (this.nivel === (ULTIMO_NIVEL + 1)) {
-              //Gano
+              this.ganoElJuego()
             } else {
               setTimeout(this.siguienteNivel.bind(this), 2000)
             }   
           }
         } else {
-          //Perdio
+          this.perdioElJuego()
         }
+      }
+
+      ganoElJuego(){
+        swal("Felicitaciones", "Ganaste el juego" , "success")
+        .then(this.inicializar.bind(this))
+
+        perdioElJuego(){
+          swal("Lo Sentimos", "Perdiste el juego" , "error")
+          .then(()=> {
+            this.eliminarEventosClick()
+            this.inicializar().bind(this)
+        })
       }
     }
 
