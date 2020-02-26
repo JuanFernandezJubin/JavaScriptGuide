@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como funciona el tiempo en JavaScript</title>
+</head>
+<body>
+    <script>
+        console.log("a")
+        //El setTimeout reive como parametros una funcion y un delay en milisegundos. En la consola aparecera a c b.
+        //Esto sucede por que JavaScript le pide al navegador que ejecute esta funcion y el navegador la pone en la
+        //COLA DE TAREAS. Y NO LAS EJECUTARA HASTA QUE TERMINE EL PROGRAMA PRINCIPAL
+        setTimeout( () => console.log("b") , 0)
+        console.log("c")
+    </script>
+</body>
+</html>
